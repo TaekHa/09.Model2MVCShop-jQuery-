@@ -10,6 +10,31 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
+	
+	$(function(){
+		$( "td.ct_btn01:contains('확인')" ).on("click" , function() {
+			//Debug..
+			//alert(  $( "td.ct_btn01:contains('확인')" ).html() );
+			self.location="/product/listProduct?menu=manage"
+		});
+		
+		$( "td.ct_btn01:contains('이전')" ).on("click" , function() {
+			//Debug..
+			//alert(  $( "td.ct_btn01:contains('확인')" ).html() );
+			self.location="/product/listProduct?menu=${menu}"
+		});
+		
+		$( "td.ct_btn01:contains('구매')" ).on("click" , function() {
+			//Debug..
+			//alert(  $( "td.ct_btn01:contains('확인')" ).html() );
+			self.location="/purchase/addPurchase?prodNo=${product.prodNo}"
+		});
+	});
+	</script>
+	
+
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
@@ -127,7 +152,7 @@
 							<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 						</td>
 						<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-							<a href="/purchase/addPurchase?prodNo=${product.prodNo}">구매</a>
+							구매
 						</td>
 						<td width="14" height="23">
 							<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -140,10 +165,10 @@
 					</td>
 					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
 						<c:if test = "${menu.equals('ok') }">
-							<a href="/product/listProduct?menu=manage">확인</a>
+							확인
 						</c:if>
 						<c:if test = "${!menu.equals('ok') }">
-							<a href="/product/listProduct?menu=${menu}">이전</a>
+							이전
 						</c:if>
 					</td>
 					<td width="14" height="23">

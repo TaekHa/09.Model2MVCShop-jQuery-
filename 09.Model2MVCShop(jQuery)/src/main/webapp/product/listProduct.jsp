@@ -15,10 +15,11 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 function fncGetList(currentPage){
-	document.getElementById("currentPage").value = currentPage;
-	document.detailForm.submit();
+	$("#currentPage").val(currentPage)
+	$("form").attr("method","POST").attr("actrion","product/listProduct?menu=${menu}").submit();
 }
 </script>
 </head>
@@ -27,7 +28,7 @@ function fncGetList(currentPage){
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/product/listProduct?menu=${menu}" method="post">
+<form name="detailForm" >
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
