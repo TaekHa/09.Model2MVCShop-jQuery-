@@ -58,13 +58,19 @@ function fncGetList(currentPage){
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
 		<td align="right">
+			<input type="radio" name="sortingOption" value="ASC" ${empty search.sortingOption || search.sortingOption eq 'ASC' ? "checked" : ""}>오름차순
+			<input type="radio" name="sortingOption" value="DESC" ${!empty search.sortingOption && search.sortingOption eq 'DESC' ? "checked" : ""}>내림차순
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
 				<option value = "0" ${!empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
 				<option value = "1" ${!empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
 				<option value = "2" ${!empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
 			</select>
-			<input 	type="text" name="searchKeyword"  value="${!empty search.searchKeyword ? search.searchKeyword : "" }" 
-							class="ct_input_g" style="width:200px; height:19px" >
+			<input 	type="${!empty search.searchCondition && search.searchCondition==2 ? 'hidden':'text' }" name="searchKeyword"  value="${!empty search.searchKeyword ? search.searchKeyword : "" }" 
+							class="ct_input_g" style="width:200px; height:19px">
+			<c:if test="${!empty search.searchCondition && search.searchCondition ==2}">
+				<input type="number" name="minPrice" value="${search.minPrice}"> ~ 
+				<input type="number" name="maxPrice" value="${search.maxPrice}">
+			</c:if>
 		</td>
 
 		<td align="right" width="70">

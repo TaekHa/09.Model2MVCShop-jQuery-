@@ -15,13 +15,18 @@
 		$( "td.ct_btn01:contains('수정')" ).on("click" , function() {
 			//Debug..
 			//alert(  $( "td.ct_btn01:contains('확인')" ).html() );
-			self.location="/purchase/updatePurchase?tranNo=${purchase.tranNo}"
+			if(${purchase.tranCode} < 2){
+				self.location="/purchase/updatePurchase?tranNo=${purchase.tranNo}"
+			}else{
+				alert("이미 배송 중인 상품입니다.")
+			}
 		});
 		
 		$( "td.ct_btn01:contains('확인')" ).on("click" , function() {
 			//Debug..
 			//alert(  $( "td.ct_btn01:contains('확인')" ).html() );
 			self.location="/purchase/listPurchase"
+			
 		});
 	});
 	</script>

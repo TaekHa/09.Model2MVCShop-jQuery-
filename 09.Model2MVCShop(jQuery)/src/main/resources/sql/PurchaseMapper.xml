@@ -166,7 +166,7 @@
 										WHERE t.prod_no = p.prod_no 
 										AND t.buyer_id = u.user_id 
 										AND u.user_id = #{buyerId}
-										ORDER BY tran_no  ) inner_table
+										ORDER BY tran_no ${search.sortingOption}  ) inner_table
   						WHERE ROWNUM <![CDATA[<=]]> #{search.currentPage}*#{search.pageSize} )
   		WHERE row_seq BETWEEN (#{search.currentPage}-1)*#{search.pageSize}+1
   		AND #{search.currentPage}*#{search.pageSize}
