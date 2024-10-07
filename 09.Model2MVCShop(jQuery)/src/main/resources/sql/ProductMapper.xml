@@ -8,14 +8,14 @@
  	
  	
 	<resultMap id="productSelectMap" type="product">
-		<result property="prodNo" 			column="prod_no" 			jdbcType="NUMERIC"/>
-		<result property="prodName"	column="prod_name" 		jdbcType="VARCHAR" />
-		<result property="prodDetail" 	column="prod_detail" 		jdbcType="VARCHAR" />
-		<result property="manuDate" 	column="manufacture_day" 					jdbcType="VARCHAR" />
-		<result property="price" 				column="price" 					jdbcType="NUMERIC" />
-		<result property="fileName" 			column="image_file" 		jdbcType="VARCHAR" />
-		<result property="regDate" 				column="reg_date" 					jdbcType="DATE" />
-		<result property="proTranCode" 			column="tran_status_code" 				jdbcType="CHAR"  />
+		<result property="prodNo" 					column="prod_no" 							jdbcType="NUMERIC"/>
+		<result property="prodName"				column="prod_name" 					jdbcType="VARCHAR" />
+		<result property="prodDetail" 				column="prod_detail" 					jdbcType="VARCHAR" />
+		<result property="manuDate" 				column="manufacture_day" 			jdbcType="VARCHAR" />
+		<result property="price" 						column="price" 								jdbcType="NUMERIC" />
+		<result property="fileName" 					column="image_file" 						jdbcType="VARCHAR" />
+		<result property="regDate" 					column="reg_date" 						jdbcType="DATE" />
+		<result property="proTranCode" 			column="tran_status_code" 			jdbcType="CHAR"  />
 	</resultMap>
 	
 	<!-- SQL : INSERT -->
@@ -64,17 +64,27 @@
 												p.prod_no = t.prod_no(+)
 												<if test="searchCondition != null">
 														<if test='searchCondition == 0 and searchKeyword !="" '>
-										 					AND p.prod_no LIKE '%'||#{searchKeyword}||'%'
+										 					AND p.prod_no LIKE '%'||#{searchKeyword}||'%'										 					
 														</if>
 														<if test='searchCondition == 1 and searchKeyword !="" '>
-										 					AND p.prod_name LIKE '%'||#{searchKeyword}||'%'
+										 					AND p.prod_name LIKE '%'||#{searchKeyword}||'%'										 					
 														</if>
-														<if test='searchCondition == 2 and searchKeyword !="" '>
-										 					AND p.price LIKE #{searchKeyword}
+														<if test='searchCondition == 2 and minPrice gte 0 and maxPrice gte 0'>
+										 					AND p.price BETWEEN ${minPrice} AND ${maxPrice}			
 														</if>
-													</if>
-												</where>
-											ORDER BY p.prod_no ) inner_table
+												</if>
+											</where>
+											<if test="searchCondition == 0 or searchCondition == null">
+												ORDER BY p.prod_no ${sortingOption}
+											</if>
+											<if test="searchCondition == 1">
+												ORDER BY p.prod_name ${sortingOption}
+											</if>
+											<if test="searchCondition == 2">
+												ORDER BY p.price ${sortingOption}
+											</if>
+											
+											 ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>

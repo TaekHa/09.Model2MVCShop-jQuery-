@@ -63,7 +63,13 @@
 													</if>
 												</where>
 											</if>
-											ORDER BY user_id ) inner_table
+											<if test="searchCondition == 0 or searchCondition == null">
+												ORDER BY user_id ${sortingOption}
+											</if>
+											<if test="searchCondition == 1">
+												ORDER BY user_name ${sortingOption}
+											</if>
+											 ) inner_table
 						WHERE ROWNUM &lt;= #{endRowNum} )
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
 	 </select>
